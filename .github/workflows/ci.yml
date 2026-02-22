@@ -16,5 +16,9 @@ jobs:
       - name: Print Message
         run: echo "Build Successful"
 
-      - name: Show Files
-        run: ls -la
+      - name: Slack Notification
+        if: always()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"GitHub Actions Build Completed Successfully 🚀"}' \
+          ${{ secrets.SLACK_WEBHOOK }}
